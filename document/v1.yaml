@@ -1,0 +1,98 @@
+openapi: 3.0.3
+
+info:
+  title: "ShuttlePub API v1"
+  description: |-
+    WIP~
+  contact:
+    email: "support@shuttle.pub"
+  version: "1.0.0"
+
+servers:
+  - url: "htttps://api.shuttle.pub/v1"
+    description: "V1"
+
+tags:
+  - name: "Profile"
+    description: "ユーザープロフィール"
+
+paths:
+  "/profile/{target}":
+    patch:
+      tags: ["Profile"]
+      summary: "Update profile"
+      description: "対象のプロフィールを更新します"
+      operationId: "updateProfile"
+      parameters:
+        - name: "target"
+          in: path
+          required: true
+          description: "The name or id of a specific user"
+          schema:
+            type: string
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Profile-request"
+        required: true
+      responses:
+        "200":
+          description: "更新に成功した場合"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Profile-response"
+        "400":
+          description: "無効なID/Nameの指定"
+        "404":
+          description: "対象のプロフィールが存在しない場合"
+        "405":
+          description: "検証に失敗した場合"
+
+components:
+  schemas:
+    Profile-request:
+      type: object
+      properties:
+        display_name:
+          type: string
+          example: "shuttlepub"
+        summary:
+          type: string
+          example: "A Blazing Fast Fediverse MicroBlog"
+        icon:
+          type: string
+          example: "https://cdn.shuttle.pub/icon.png"
+        banner:
+          type: string
+          example: "https://cdn.shuttle.pub/banner.png"
+    Profile-response:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 0
+        account:
+          type: integer
+          format: int64
+          example: 6446348271139192
+        display_name:
+          type: string
+          example: "shuttlepub"
+        summary:
+          type: string
+          example: "A Blazing Fast Fediverse MicroBlog"
+        icon:
+          type: string
+          example: "https://cdn.shuttle.pub/icon.png"
+        banner:
+          type: string
+          example: "https://cdn.shuttle.pub/banner.png"
+        created_at:
+          type: string
+          format: date
+          example: "2023-02-06"
+
