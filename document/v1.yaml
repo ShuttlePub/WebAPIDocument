@@ -9,7 +9,7 @@ info:
   version: "1.0.0"
 
 servers:
-  - url: "htttps://api.shuttle.pub/v1"
+  - url: "https://api.shuttle.pub/v1"
     description: "V1"
 
 tags:
