@@ -22,6 +22,7 @@ jobs:
       - name: Generate Static Site
         uses: addnab/docker-run-action@v3
         with:
+          image: swaggerapi/swagger-codegen-cli:latest
           options: -v ${{ github.workspace }}/document:/document
           run: generate -i document/v1 -l html2 -o out
       - name: Publish to Cloudflare Pages
