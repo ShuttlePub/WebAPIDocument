@@ -21,7 +21,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: Generate Static Site
         run: |
-          curl -L -O https://github.com/swagger-api/swagger-ui/archive/refs/heads/main.zip
+          curl -L -O https://github.com/swagger-api/swagger-ui/archive/refs/heads/master.zip
           7z x master.zip
           cp -r swagger-ui-master/dist out
           sed -i 's|https://petstore.swagger.io/v2/swagger.json|https://apidocs.shuttle.pub/api/v1.yaml|' out/swagger-initializer.js 
