@@ -13,11 +13,102 @@ servers:
     description: "V1"
 
 tags:
+  - name: "Account"
+    description: "ユーザーアカウント"
   - name: "Profile"
     description: "ユーザープロフィール"
 
 paths:
+  "/accounts/signup":
+    post:
+      tags: ["Account"]
+      summary: "Signup"
+      description: "新規アカウントを作成します"
+      operationId: "signup"
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Account-signup-request"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Account-response"
+        "405":
+          description: "検証に失敗した場合"
+  "/accounts/login":
+    post:
+      tags: ["Account"]
+      summary: "Login"
+      description: "アカウントにログインします"
+      operationId: "login"
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Account-login-request"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Account-response"
+        "405":
+          description: "検証に失敗した場合"
+  "/account/{target}":
+    delete:
+      tags: ["Account"]
+      summary: "Delete account"
+      description: "アカウントを削除します"
+      operationId: "deleteAccount"
+      parameters:
+        - name: "target"
+          in: path
+          required: true
+          description: "The name or id of the user"
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Account-response"
+        "405":
+          description: "検証に失敗した場合"
   "/profile/{target}":
+    get:
+      tags: ["Profile"]
+      summary: "Get profile"
+      description: "対象のプロフィールを取得します"
+      operationId: "getProfile"
+      parameters:
+        - name: "target"
+          in: path
+          required: true
+          description: "The name or id of the user"
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Profile-response"
+        "400":
+          description: "無効なID/Nameの指定"
+        "404":
+          description: "対象のプロフィールが存在しない場合"
+        "405":
+          description: "検証に失敗した場合"
     patch:
       tags: ["Profile"]
       summary: "Update profile"
@@ -27,7 +118,7 @@ paths:
         - name: "target"
           in: path
           required: true
-          description: "The name or id of a specific user"
+          description: "The name or id of the user"
           schema:
             type: string
       requestBody:
@@ -53,6 +144,37 @@ paths:
 
 components:
   schemas:
+    Account-signup-request:
+      type: object
+      properties:
+        account_name:
+          type: string
+          example: "shuttlepub"
+        mail:
+          type: string
+          example: "examplemail@shuttle.pub"
+        password:
+          type: string
+          example: "*********"
+    Account-login-request:
+      type: object
+      properties:
+        mail:
+          type: string
+          example: "examplemail@shuttle.pub"
+        password:
+          type: string
+          example: "********"
+    Account-response:
+      type: object
+      properties:
+        accountId:
+          type: integer
+          format: int64
+          example: 6446348271139192
+        token:
+          type: string
+          example: "*************************"
     Profile-request:
       type: object
       properties:
@@ -68,6 +190,10 @@ components:
         banner:
           type: string
           example: "https://cdn.shuttle.pub/banner.png"
+        meta:
+          type: array
+          items:
+            $ref: "#/components/schemas/Profile-meta"
     Profile-response:
       type: object
       properties:
@@ -95,4 +221,22 @@ components:
           type: string
           format: date
           example: "2023-02-06"
+        meta:
+          type: array
+          items:
+            $ref: "#/components/schemas/Profile-meta"
+    Profile-meta:
+      type: object
+      properties:
+        id:
+          description: "empty means new content"
+          type: integer
+          format: int64
+          example: 0
+        label:
+          type: string
+          example: "page"
+        content:
+          type: string
+          example: "shuttle.pub"
 
