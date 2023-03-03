@@ -74,6 +74,13 @@ paths:
           description: "The name or id of the user"
           schema:
             type: string
+        - name: "token"
+          in: header
+          required: true
+          description: "User token"
+          schema:
+            type: string
+            example: "******************"
       responses:
         "200":
           description: ""
@@ -121,6 +128,13 @@ paths:
           description: "The name or id of the user"
           schema:
             type: string
+        - name: "token"
+          in: header
+          required: true
+          description: "User token"
+          schema:
+            type: string
+            example: "******************"
       requestBody:
         description: ""
         content:
