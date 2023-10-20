@@ -2,7 +2,7 @@
 
 # Archived
 
-https://github.com/ShuttlePub/documentに移行しました。
+https://github.com/ShuttlePub/document に移行しました。
 
 https://docs.shuttle.pub
 
