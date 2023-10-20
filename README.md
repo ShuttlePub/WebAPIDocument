@@ -1,6 +1,10 @@
 # WebAPI Document
 
+# Archived
 
+https://github.com/ShuttlePub/documentに移行しました。
+
+https://docs.shuttle.pub
 
 ## For developers
 
